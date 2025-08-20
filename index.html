@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Demo - Product Catalog</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    input, button { margin: 5px; padding: 8px; }
+    table { border-collapse: collapse; width: 50%; margin-top: 20px; }
+    th, td { border: 1px solid black; padding: 8px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>Product Catalog (CRUD Demo)</h2>
+
+  <input id="name" placeholder="Product Name">
+  <input id="price" placeholder="Product Price">
+  <button onclick="addProduct()">Add</button>
+  <button onclick="getProducts()">Refresh</button>
+
+  <table id="productTable">
+    <tr><th>ID</th><th>Name</th><th>Price</th><th>Action</th></tr>
+  </table>
+
+<script>
+const API = "http://localhost:3000/products";
+
+// Add product
+function addProduct() {
+  const name = document.getElementById("name").value;
+  const price = parseFloat(document.getElementById("price").value);
+
+  fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, price })
+  })
+  .then(res => res.json())
+  .then(() => getProducts());
+}
+
+// Get products
+function getProducts() {
+  fetch(API)
+    .then(res => res.json())
+    .then(data => {
+      let table = `<tr><th>ID</th><th>Name</th><th>Price</th><th>Action</th></tr>`;
+      data.forEach(p => {
+        table += `<tr>
+          <td>${p.id}</td>
+          <td>${p.name}</td>
+          <td>${p.price}</td>
+          <td>
+            <button onclick="deleteProduct(${p.id})">Delete</button>
+          </td>
+        </tr>`;
+      });
+      document.getElementById("productTable").innerHTML = table;
+    });
+}
+
+// Delete product
+function deleteProduct(id) {
+  fetch(API + "/" + id, { method: "DELETE" })
+    .then(() => getProducts());
+}
+
+getProducts(); // Load initially
+</script>
+</body>
+</html>
