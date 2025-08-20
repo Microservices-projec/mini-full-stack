@@ -1,4 +1,8 @@
 # Frontend Dockerfile
 FROM nginx:alpine
-COPY product/index.html /usr/share/nginx/html/index.html
+
+WORKDIR /usr/share/nginx/html/index.html
+
+COPY index.html ./
+
 EXPOSE 80
