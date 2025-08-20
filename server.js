@@ -7,9 +7,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// ✅ MySQL Connection
+// MySQL Connection
 const db = mysql.createConnection({
-    host: "localhost",
+    host: "host.docker.internal",
     user: "root",      // apna mysql username
     password: "root",      // apna mysql password
     database: "productdb"
@@ -17,7 +17,7 @@ const db = mysql.createConnection({
 
 db.connect(err => {
     if (err) throw err;
-    console.log("✅ MySQL Connected...");
+    console.log(" MySQL Connected...");
 });
 
 // ---------------- API ROUTES ----------------

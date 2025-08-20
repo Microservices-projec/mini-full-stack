@@ -1,10 +1,12 @@
-FROM node
+# Backend Dockerfile
+FROM node:18
 
-WORKDIR /myapp
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
 
 COPY . .
 
-RUN npm init -y
-RUN npm install express mysql2 body-parser cors
-
-CMD [ "node","server.js" ]
+EXPOSE 3000
+CMD ["node", "server.js"]
