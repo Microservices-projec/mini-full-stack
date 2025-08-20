@@ -1,7 +1,7 @@
 # Frontend Dockerfile
 FROM nginx:alpine
 
-WORKDIR /usr/share/nginx/html/index.html
+WORKDIR /usr/share/nginx/html
 
 COPY index.html ./
 

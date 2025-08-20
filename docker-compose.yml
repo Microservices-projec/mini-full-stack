@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: Dockerfile
     container_name: backend
     ports:
       - "3000:3000"
@@ -18,8 +18,8 @@ services:
 
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: ./product
+      dockerfile: Dockerfile
     container_name: frontend
     ports:
       - "8080:80"
@@ -34,4 +34,4 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: productsdb
     ports:
-      - "3306:3306"
+      - "3307:3306"
